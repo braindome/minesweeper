@@ -50,7 +50,7 @@ public class Player {
     public void setGamesLost(int gamesLost) {
         this.gamesLost = gamesLost;
     }
-    
+
 }
 
 
