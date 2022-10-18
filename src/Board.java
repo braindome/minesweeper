@@ -24,4 +24,14 @@ public class Board {
             System.out.println();
         }
     }
+
+    public Boolean changePlace(int row, int col){
+          String position = board[row][col];
+        if (position.isEmpty()) {
+            board[row][col] = "x";
+            return true;
+        }
+        return true;
+
+    }
 }
