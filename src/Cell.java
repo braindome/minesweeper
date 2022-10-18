@@ -33,7 +33,7 @@ public class Cell {
     public void setNearMines(int nearMines){
         this.nearMines = nearMines;
     }
-    public int getNearBombs(){
+    public int getNearMines(){
         return nearMines;
     }
 
