@@ -3,6 +3,7 @@ public class Player {
 
     // Attributes for the player
 
+
     String name;
 
     int score;
@@ -52,8 +53,7 @@ public class Player {
         this.gamesLost = gamesLost;
     }
 
-    String name;
-    int score;
+
 
 }
 
