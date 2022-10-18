@@ -1,5 +1,6 @@
 public class Player {
 
+
     // Attributes for the player
 
     String name;
@@ -50,6 +51,9 @@ public class Player {
     public void setGamesLost(int gamesLost) {
         this.gamesLost = gamesLost;
     }
+
+    String name;
+    int score;
 
 }
 
