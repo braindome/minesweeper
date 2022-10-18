@@ -10,8 +10,8 @@ public class Game {
         //create player
         //createPlayer();
 
-        //create board
-        // createBoard();
+// create board
+         createBoard();
     }
 
     public void createPlayer() {
@@ -33,6 +33,10 @@ public class Game {
         System.out.println("How big do you want the board to be?");
         int size = sc.nextInt();
 
+
+        Board board = new Board(size);
+
+        board.printBoard();
 
 
 
