@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class Game {
 
-
-
     Boolean playGame = true;
 
     public Game (){
