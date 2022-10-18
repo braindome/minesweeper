@@ -24,7 +24,6 @@ public class Game {
             String name = sc.nextLine();
 
 
-
     }
 
 
@@ -45,6 +44,7 @@ public class Game {
 
             //playing game while playGame is true
 
+            play();
 
             System.out.println("Do you want to play again? Write yes or no!");
             Scanner sc = new Scanner(System.in);
