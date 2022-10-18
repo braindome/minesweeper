@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Game {
 
-    Boolean playGame;
+    Boolean playGame = true;
 
     public Game (){
         //create player
