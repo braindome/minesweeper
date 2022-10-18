@@ -13,6 +13,10 @@ public class Player {
 
     // Constructors for the attributes
 
+    public Player(){
+
+    }
+
     public Player(String name, int score, int gamesWon, int gamesLost) {
         this.name = name;
         this.score = score;

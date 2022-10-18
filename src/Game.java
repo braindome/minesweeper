@@ -2,14 +2,18 @@ import java.util.Scanner;
 
 public class Game {
 
+    private Player player = new Player();
+
+    Board board;
+
     Boolean playGame = true;
 
     public Game (){
         //create player
-        //createPlayer();
+        createPlayer();
 
-// create board
-         createBoard();
+        //create board
+        createBoard();
     }
 
     public void createPlayer() {
@@ -20,24 +24,25 @@ public class Game {
 
             System.out.println("Player, please write your name");
             String name = sc.nextLine();
+            player.setName(name);
 
+            System.out.println(player.getName());
 
     }
 
 
     public void createBoard(){
+        try {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("How big do you want the board to be?");
         int size = sc.nextInt();
 
-
         Board board = new Board(size);
-
         board.printBoard();
-
-
-
+        } catch (Exception e) {
+            System.out.println("Invalid input; try again.");
+        }
     }
 
 
@@ -69,11 +74,13 @@ public class Game {
         int rowNumber;
         int colNumber;
 
-        System.out.println(/*player.getName() + */  ", choose a row ");
+        System.out.println(player.getName() +   ", choose a row ");
         Scanner sc = new Scanner(System.in);
         rowNumber = sc.nextInt() - 1;
-        System.out.println(/*player.getName() + */  ", choose a col ");
+        System.out.println(player.getName() +  ", choose a col ");
         colNumber = sc.nextInt() - 1;
+
+       // board.changePlace(rowNumber, colNumber);
 
     }
 
