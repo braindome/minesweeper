@@ -15,13 +15,25 @@ public class Board {
     }
 
     public void printBoard() {
+        System.out.print("   ");
         for (int i = 0; i < size; i++) {
+            System.out.print(" " + i + "  ");
+        }
+        System.out.println();
+        for (int i = 0; i < size; i++) {
+            System.out.print(" " + i + " ");
             for (int j = 0; j < size; j++) {
+
                 String position = board[i][j];
-                System.out.print(position.isEmpty() ? "__" : position);
+                System.out.print(position.isEmpty() ? "   " : position);
                 System.out.print("|");
+
             }
             System.out.println();
         }
+    }
+
+    public void changePlace() {
+
     }
 }
