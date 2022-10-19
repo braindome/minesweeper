@@ -33,17 +33,21 @@ public class Cell {
     public void setNearBombs(int nearBombs){
         this.nearBombs = nearBombs;
     }
-    public int getNearBombs(){
+    public int getNearMines(){
         return nearBombs;
     }
 
-    /* Method for placing a flag
+    // Method for placing a flag
 
     public void placeFlag() {
 
+        if(flag) flag  = false;
+        else {
+            if(!visible) flag = true;
+        }
    }
 
-         */
+
     public boolean isFlag(){
         return flag;
     }
