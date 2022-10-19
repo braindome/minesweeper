@@ -12,7 +12,7 @@ public class Cell {
 
     private boolean visible;
 
-    private int nearBombs;
+    private int nearMines;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -30,11 +30,12 @@ public class Cell {
     public boolean isMine(){
         return mine;
     }
-    public void setNearBombs(int nearBombs){
-        this.nearBombs = nearBombs;
+    public void setNearMines(int nearMines){
+        this.nearMines = nearMines;
     }
     public int getNearMines(){
         return nearBombs;
+
     }
 
     // Method for placing a flag
@@ -42,16 +43,15 @@ public class Cell {
     public void placeFlag() {
 
         if(flag) flag  = false;
+
         else {
             if(!visible) flag = true;
         }
    }
 
-
     public boolean isFlag(){
         return flag;
     }
-
 
 
 

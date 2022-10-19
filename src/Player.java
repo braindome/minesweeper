@@ -3,7 +3,6 @@ public class Player {
 
     // Attributes for the player
 
-
     String name;
 
     int score;
