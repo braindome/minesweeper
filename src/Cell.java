@@ -34,14 +34,16 @@ public class Cell {
         this.nearMines = nearMines;
     }
     public int getNearMines(){
-        return nearMines;
+        return nearBombs;
+
     }
 
     // Method for placing a flag
 
     public void placeFlag() {
 
-        if(flag) flag = false;
+        if(flag) flag  = false;
+
         else {
             if(!visible) flag = true;
         }
