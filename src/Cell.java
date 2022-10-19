@@ -34,7 +34,7 @@ public class Cell {
         this.nearMines = nearMines;
     }
     public int getNearMines(){
-        return nearBombs;
+        return nearMines;
 
     }
 
