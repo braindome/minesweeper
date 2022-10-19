@@ -14,7 +14,7 @@ public class Cell {
 
     private int nearMines;
 
-    public Cell(int x, int y) {
+    public Cell() {
         this.x = x;
         this.y = y;
     }
@@ -48,6 +48,8 @@ public class Cell {
             if(!visible) flag = true;
         }
    }
+
+
 
     public boolean isFlag(){
         return flag;
