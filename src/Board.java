@@ -4,6 +4,8 @@ public class Board {
     private String[][] board;
 
     public Board(int size) {
+
+        //create a new board
         this.size = size;
         this.board = new String[size][size];
 
@@ -15,6 +17,8 @@ public class Board {
     }
 
     public void printBoard() {
+
+        //print board
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
             System.out.print(" " + i + "  ");
@@ -32,6 +36,7 @@ public class Board {
     }
 
     public Boolean changePlace(int row, int col){
+        //change place of marker
           String position = board[row][col];
         if (position.isEmpty()) {
             board[row][col] = "x";
