@@ -21,13 +21,11 @@ public class Game {
             //create players
             Scanner sc = new Scanner(System.in);
 
-
             System.out.println("Player, please write your name");
             String name = sc.nextLine();
             player.setName(name);
 
             System.out.println(player.getName());
-
     }
 
 
@@ -39,7 +37,9 @@ public class Game {
         int size = sc.nextInt();
 
         board = new Board(size);
-        board.printBoard();
+        board.printVisibleBoard();
+            board.mineGenerator();
+
         } catch (Exception e) {
             System.out.println("Invalid input; try again.");
         }
@@ -61,12 +61,8 @@ public class Game {
             if (answer.equals("no")){
                 playGame = false;
             }
-
-
         }
     }
-
-
 
     public void play(){
         //here we put in what we want to play
@@ -83,12 +79,10 @@ public class Game {
 
             board.changePlace(rowNumber, colNumber);
 
-            board.printBoard();
+            board.printVisibleBoard();
 
             //denna metoden ska ta emot true eller false
             //när någon spelat och förlorat/vunnit så ska det bli false
         }
     }
-
-
 }
