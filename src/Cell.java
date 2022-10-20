@@ -49,8 +49,6 @@ public class Cell {
         }
    }
 
-
-
     public boolean isFlag(){
         return flag;
     }
