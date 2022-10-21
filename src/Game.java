@@ -69,6 +69,7 @@ public class Game {
             //here we put in what we want to play
 
         while (playGame){
+
             try {
                 int rowNumber;
                 int colNumber;
@@ -95,6 +96,7 @@ public class Game {
                 System.out.println("nu blev det fel");
                 playGame=false;
             }
+
         }
     }
 }

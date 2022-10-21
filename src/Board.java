@@ -142,7 +142,26 @@ public class Board {
     }
 
 
-}
+    public boolean checkWin()
+    {
+        for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+                if(visibleBoard[i][j].equals("0") /*==0*/)
+                {
+                    if(!hiddenBoard[i][j].equals("100") /*!=100*/)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
+
 
  /*  private void setMines() {
         //ranodm placement of mines
