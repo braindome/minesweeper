@@ -143,6 +143,11 @@ public class Board {
 
 
     public boolean checkWin()
+            //not working right now
+
+            //if returns true the game is over and player won
+            //if returns false the game isn't over
+            //should maybe return also if the player lost? Or maybe nothing
     {
         for(int i=0; i<size; i++)
         {
