@@ -90,6 +90,10 @@ public class Game {
                 board.minesAround(rowNumber, colNumber);
                 board.printVisibleBoard();
 
+                if(board.checkWin()){
+                    player.increaseScore();
+                }
+
                 //denna metoden ska ta emot true eller false
                 //när någon spelat och förlorat/vunnit så ska det bli false
             } catch (Exception e) {

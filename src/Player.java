@@ -56,12 +56,8 @@ public class Player {
 
     public void increaseScore(){
         score++;
-        System.out.println(name + " has won" + score + " times!");
+        System.out.println(name + " has won " + score + " times!");
     }
-
-
-
-
 
 
 }
