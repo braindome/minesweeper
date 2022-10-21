@@ -2,13 +2,14 @@ public class Player {
 
     // Attributes for the player
 
-    String name;
+    private String name;
 
-    int score;
+    private int score;
 
-    int gamesWon;
+    private int gamesWon;
 
-    int gamesLost;
+    private String winner;
+
 
     // Constructors for the attributes
 
@@ -16,11 +17,17 @@ public class Player {
 
     }
 
-    public Player(String name, int score, int gamesWon, int gamesLost) {
+    public Player(String name, int score) {
         this.name = name;
         this.score = score;
-        this.gamesWon = gamesWon;
-        this.gamesLost = gamesLost;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 
     public String getName() {
@@ -47,13 +54,13 @@ public class Player {
         this.gamesWon = gamesWon;
     }
 
-    public int getGamesLost() {
-        return gamesLost;
+    public void increaseScore(){
+        score++;
+        System.out.println(name + " has won" + score + " times!");
     }
 
-    public void setGamesLost(int gamesLost) {
-        this.gamesLost = gamesLost;
-    }
+
+
 
 
 

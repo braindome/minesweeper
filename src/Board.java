@@ -141,6 +141,9 @@ public class Board {
         return true;
     }
 
+
+}
+
  /*  private void setMines() {
         //ranodm placement of mines
 
