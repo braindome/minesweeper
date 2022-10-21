@@ -6,7 +6,11 @@ public class Game {
 
     private Board board;
 
+    //playGame == true as long as the round is going
     Boolean playGame = true;
+
+    //keepPlaying == true as long as the player wants to play
+    Boolean keepPlaying = true;
     Boolean firstMove = true;
 
     public Game (){
@@ -48,19 +52,31 @@ public class Game {
 
 
     public void startGame(){
-        while (playGame){
+        while (keepPlaying){
 
-            //playing game while playGame is true
+            //playing game while keepPlaying is true
 
             play();
-            //add to winner
 
             System.out.println("Do you want to play again? Write yes or no!");
             Scanner sc = new Scanner(System.in);
-            String answer = sc.nextLine();
 
-            if (answer.equals("no")){
-                playGame = false;
+            while (true) {
+                String answer = sc.nextLine();
+                if (answer.equals("yes")) {
+                    //Creating new board
+                    createBoard();
+                    playGame = true;
+                    break;
+
+                } else if (answer.equals("no")) {
+                    System.out.println("Thank you for playing!");
+                    keepPlaying = false;
+
+                    break;
+                } else {
+                    System.out.println("Please write yes or no.");
+                }
             }
         }
     }
@@ -90,14 +106,18 @@ public class Game {
                 board.minesAround(rowNumber, colNumber);
                 board.printVisibleBoard();
 
-                if(board.checkWin()){
-                    player.increaseScore();
-                }
-
+                //fixa till checkwin så att det stämmer på riktigt
                 //denna metoden ska ta emot true eller false
                 //när någon spelat och förlorat/vunnit så ska det bli false
+           /*     if(board.checkWin()){
+                    player.increaseScore();
+                }*/
+
+
             } catch (Exception e) {
                 System.out.println("nu blev det fel");
+
+                //ta bort sen men just nu - skriver man fel så avslutas omgången
                 playGame=false;
             }
 
