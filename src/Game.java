@@ -81,6 +81,10 @@ public class Game {
 
             board.printVisibleBoard();
 
+            if(board.checkWin()){
+
+            }
+
             //denna metoden ska ta emot true eller false
             //när någon spelat och förlorat/vunnit så ska det bli false
         }
