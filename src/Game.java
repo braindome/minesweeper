@@ -7,6 +7,7 @@ public class Game {
     private Board board;
 
     Boolean playGame = true;
+    Boolean firstMove = true;
 
     public Game (){
         //create player
@@ -38,7 +39,7 @@ public class Game {
 
         board = new Board(size);
         board.printVisibleBoard();
-            board.mineGenerator();
+        board.mineGenerator();
 
         } catch (Exception e) {
             System.out.println("Invalid input; try again.");
@@ -65,28 +66,37 @@ public class Game {
     }
 
     public void play(){
-        //here we put in what we want to play
+            //here we put in what we want to play
 
         while (playGame){
-            int rowNumber;
-            int colNumber;
 
-            System.out.println(player.getName() +   ", choose a row ");
-            Scanner sc = new Scanner(System.in);
-            rowNumber = sc.nextInt() - 1;
-            System.out.println(player.getName() +  ", choose a col ");
-            colNumber = sc.nextInt() - 1;
+            try {
+                int rowNumber;
+                int colNumber;
 
-            board.changePlace(rowNumber, colNumber);
+                System.out.println(player.getName() +   ", choose a row ");
+                Scanner sc = new Scanner(System.in);
+                rowNumber = sc.nextInt() - 1;
+                System.out.println(player.getName() +  ", choose a col ");
+                colNumber = sc.nextInt() - 1;
 
-            board.printVisibleBoard();
+                board.changePlace(rowNumber, colNumber);
+                if(firstMove){
+                    board.startingAreaClear(rowNumber, colNumber);
+                    firstMove = false;
+                    board.mineGenerator();
+                }
 
-            if(board.checkWin()){
+                board.minesAround(rowNumber, colNumber);
+                board.printVisibleBoard();
 
+                //denna metoden ska ta emot true eller false
+                //när någon spelat och förlorat/vunnit så ska det bli false
+            } catch (Exception e) {
+                System.out.println("nu blev det fel");
+                playGame=false;
             }
 
-            //denna metoden ska ta emot true eller false
-            //när någon spelat och förlorat/vunnit så ska det bli false
         }
     }
 }
