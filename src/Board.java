@@ -5,7 +5,9 @@ public class Board {
     int size;
 
     private int mineCells;
-    private final String[][] visibleBoard;                  //Visible board.
+
+    //private final String[][] visibleBoard;
+    final String[][] visibleBoard;                  //Visible board.
     private final String[][] hiddenBoard;
 
     Random random = new Random();
@@ -26,6 +28,7 @@ public class Board {
       //  setMines();
     }
 
+    //Displays the public game board.
     public void printVisibleBoard() {
         //print board
         System.out.print("   ");
@@ -44,19 +47,38 @@ public class Board {
         }
     }
 
-    //Generates mines across the game board. Fixed proportion at 20% of the game area.
+    //Generates mines across the game board. Fixed proportion at 20% of the game area. UPDATE: mines are not generated within the 3x3 starting area.
     public void mineGenerator() {
         int numOfMines = (size*size)/5;
         //System.out.println("N of mines: " + numOfMines);
         for (int i = 0; i <= numOfMines; i++) {
             int mineRow = random.nextInt(size);
             int mineCol = random.nextInt(size);
-            hiddenBoard[mineRow][mineCol] = " * ";
-            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {
-                //Prints mine coordinates (for testing purposes).
+
+            if (!visibleBoard[mineRow][mineCol].equals(" X ")) {
+                hiddenBoard[mineRow][mineCol] = " * ";
+
+            }
+            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
                 System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
             }
         }
+    }
+
+
+
+    //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
+    //This square is always mine-free and it starts the game.
+    public void startingAreaClear(int row, int col) {
+        visibleBoard[row][col] = " X ";
+        visibleBoard[row-1][col-1] = " X ";
+        visibleBoard[row-1][col+1] = " X ";
+        visibleBoard[row+1][col-1] = " X ";
+        visibleBoard[row+1][col+1] = " X ";
+        visibleBoard[row][col-1] = " X ";
+        visibleBoard[row-1][col] = " X ";
+        visibleBoard[row][col+1] = " X ";
+        visibleBoard[row+1][col] = " X ";
     }
 
     //Checks EVERY SQUARE for proximity to mines, adds them to a counter and returns the value.

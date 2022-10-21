@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 /*
@@ -12,7 +14,30 @@ public class Main {
 */
         System.out.println("Welcome to MineSweep! Try to find all the numbers in the board without hitting any bombs. Good luck!");
         Game game = new Game();
-        game.startGame();
+         game.startGame();
+
+
+         /*
+
+        board.visibleBoard[row][col] = " X ";
+
+        board.mineGenerator();
+
+        board.printVisibleBoard();
+
+        board.minesAround(row, col);
+
+        System.out.println("Enter row");
+        row = sc.nextInt();
+        System.out.println("Enter column");
+        col = sc.nextInt();
+
+        board.minesAround(row, col);
+        board.printVisibleBoard();
+
+*/
+
+
 
 
     }
