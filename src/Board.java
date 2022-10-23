@@ -89,13 +89,13 @@ public class Board {
             visibleBoard[row-1][col-1] = " X ";
             //System.out.println("pos 1 ok");
         }
-        if ((row-1) >= 0 && (col+1) <= size) {
+        if ((row-1) >= 0 && (col+1) < size) {
             visibleBoard[row-1][col+1] = " X ";
         }
-        if ((row+1) <= size && (col-1) >= 0) {
+        if ((row+1) < size && (col-1) >= 0) {
             visibleBoard[row+1][col-1] = " X ";
         }
-        if ((row+1) <= size && (col+1) <= size) {
+        if ((row+1) < size && (col+1) < size) {
             visibleBoard[row+1][col+1] = " X ";
         }
         if ((col-1) >= 0) {
@@ -104,10 +104,10 @@ public class Board {
         if ((row-1) >= 0) {
             visibleBoard[row-1][col] = " X ";
         }
-        if ((col+1) <= size) {
+        if ((col+1) < size) {
             visibleBoard[row][col+1] = " X ";
         }
-        if ((row+1) <= size) {
+        if ((row+1) < size) {
             visibleBoard[row+1][col] = " X ";
         }
 
@@ -162,13 +162,13 @@ public class Board {
             if ((row-1) >= 0 && (col-1) >= 0) {
                 if (hiddenBoard[row-1][col-1].equals(" * ")) mineCounter++;
             }
-            if ((row-1) >= 0 && (col+1) <= size) {
+            if ((row-1) >= 0 && (col+1) < size) {
                 if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
             }
-            if ((row+1) <= size && (col-1) >= 0) {
+            if ((row+1) < size && (col-1) >= 0) {
                 if (hiddenBoard[row+1][col-1].equals(" * ")) mineCounter++;
             }
-            if ((row-1) >= 0 && (col+1) <= size) {
+            if ((row-1) >= 0 && (col+1) < size) {
                 if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
             }
             //Above, below and to the sides of mine.
@@ -178,10 +178,10 @@ public class Board {
             if ((row-1) >= 0) {
                 if (hiddenBoard[row-1][col].equals(" * ")) mineCounter++;
             }
-            if ((col+1) <= size) {
+            if ((col+1) < size) {
                 if (hiddenBoard[row][col+1].equals(" * ")) mineCounter++;
             }
-            if ((row+1) <= size) {
+            if ((row+1) < size) {
                 if (hiddenBoard[row+1][col].equals(" * ")) mineCounter++;
             }
         }
