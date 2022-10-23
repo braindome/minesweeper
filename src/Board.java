@@ -33,11 +33,21 @@ public class Board {
         //print board
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
-            System.out.print(" " + i + "  ");
+            if (i < 10) {
+                System.out.print(" " + i + "  ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i + " ");
+            }
         }
         System.out.println();
         for (int i = 0; i < size; i++) {
-            System.out.print(" " + i + " ");
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i );
+            }
             for (int j = 0; j < size; j++) {
                 String position = visibleBoard[i][j];
                 System.out.print(position.isEmpty() ? "   " : position);
@@ -59,9 +69,9 @@ public class Board {
                 hiddenBoard[mineRow][mineCol] = " * ";
 
             }
-            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-            }
+//            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
+//                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
+//            }
         }
     }
 
@@ -69,16 +79,38 @@ public class Board {
 
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
     //This square is always mine-free and it starts the game.
+//    public void startingAreaClear(int row, int col) {
+//
+//
+//        visibleBoard[row][col] = " X ";
+//        visibleBoard[row-1][col-1] = " X ";
+//        visibleBoard[row-1][col+1] = " X ";
+//        visibleBoard[row+1][col-1] = " X ";
+//        visibleBoard[row+1][col+1] = " X ";
+//        visibleBoard[row][col-1] = " X ";
+//        visibleBoard[row-1][col] = " X ";
+//        visibleBoard[row][col+1] = " X ";
+//        visibleBoard[row+1][col] = " X ";
+//
+//    }
+
     public void startingAreaClear(int row, int col) {
         visibleBoard[row][col] = " X ";
-        visibleBoard[row-1][col-1] = " X ";
-        visibleBoard[row-1][col+1] = " X ";
-        visibleBoard[row+1][col-1] = " X ";
-        visibleBoard[row+1][col+1] = " X ";
-        visibleBoard[row][col-1] = " X ";
-        visibleBoard[row-1][col] = " X ";
-        visibleBoard[row][col+1] = " X ";
-        visibleBoard[row+1][col] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row-1][col-1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row-1][col+1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row+1][col-1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row+1][col+1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row][col-1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row-1][col] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row][col+1] = " X ";
+        if (boundsCheck(row, col)) visibleBoard[row+1][col] = " X ";
+
+
+    }
+
+    public boolean boundsCheck(int row, int col) {
+        if ((row-1) < 0) return false;
+        return (col - 1) >= 0;
     }
 
     //Checks EVERY SQUARE for proximity to mines, adds them to a counter and returns the value.

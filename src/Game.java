@@ -43,7 +43,7 @@ public class Game {
 
         board = new Board(size);
         board.printVisibleBoard();
-        board.mineGenerator();
+        //board.mineGenerator();
 
         } catch (Exception e) {
             System.out.println("Invalid input; try again.");
@@ -52,6 +52,7 @@ public class Game {
 
 
     public void startGame(){
+
         while (keepPlaying){
 
             //playing game while keepPlaying is true
@@ -92,9 +93,9 @@ public class Game {
 
                 System.out.println(player.getName() +   ", choose a row ");
                 Scanner sc = new Scanner(System.in);
-                rowNumber = sc.nextInt() - 1;
+                rowNumber = sc.nextInt();
                 System.out.println(player.getName() +  ", choose a col ");
-                colNumber = sc.nextInt() - 1;
+                colNumber = sc.nextInt();
 
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
@@ -122,5 +123,8 @@ public class Game {
             }
 
         }
+
+
     }
+
 }
