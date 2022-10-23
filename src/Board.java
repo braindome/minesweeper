@@ -33,11 +33,21 @@ public class Board {
         //print board
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
-            System.out.print(" " + i + "  ");
+            if (i < 10) {
+                System.out.print(" " + i + "  ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i + " ");
+            }
         }
         System.out.println();
         for (int i = 0; i < size; i++) {
-            System.out.print(" " + i + " ");
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i );
+            }
             for (int j = 0; j < size; j++) {
                 String position = visibleBoard[i][j];
                 System.out.print(position.isEmpty() ? "   " : position);
@@ -59,27 +69,51 @@ public class Board {
                 hiddenBoard[mineRow][mineCol] = " * ";
 
             }
-            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-            }
+//            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
+//                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
+//            }
         }
     }
 
 
 
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
-    //This square is always mine-free and it starts the game.
+    //This square is always mine-free, and it starts the game.
+    //FIXED: Out of Bounds exception handling. Needs more testing.
     public void startingAreaClear(int row, int col) {
+
         visibleBoard[row][col] = " X ";
-        visibleBoard[row-1][col-1] = " X ";
-        visibleBoard[row-1][col+1] = " X ";
-        visibleBoard[row+1][col-1] = " X ";
-        visibleBoard[row+1][col+1] = " X ";
-        visibleBoard[row][col-1] = " X ";
-        visibleBoard[row-1][col] = " X ";
-        visibleBoard[row][col+1] = " X ";
-        visibleBoard[row+1][col] = " X ";
+        System.out.println("start ok");
+        if ((row-1) >= 0 && ((col-1) >= 0)) {
+            //System.out.println("inside if 1");
+            visibleBoard[row-1][col-1] = " X ";
+            //System.out.println("pos 1 ok");
+        }
+        if ((row-1) >= 0 && (col+1) < size) {
+            visibleBoard[row-1][col+1] = " X ";
+        }
+        if ((row+1) < size && (col-1) >= 0) {
+            visibleBoard[row+1][col-1] = " X ";
+        }
+        if ((row+1) < size && (col+1) < size) {
+            visibleBoard[row+1][col+1] = " X ";
+        }
+        if ((col-1) >= 0) {
+            visibleBoard[row][col-1] = " X ";
+        }
+        if ((row-1) >= 0) {
+            visibleBoard[row-1][col] = " X ";
+        }
+        if ((col+1) < size) {
+            visibleBoard[row][col+1] = " X ";
+        }
+        if ((row+1) < size) {
+            visibleBoard[row+1][col] = " X ";
+        }
+
+
     }
+
 
     //Checks EVERY SQUARE for proximity to mines, adds them to a counter and returns the value.
     public int boardHints() {
@@ -88,15 +122,31 @@ public class Board {
             for (int j = 0; j <= size; j++) {
                 if (!hiddenBoard[i][j].equals(" * ")) {
                     //Diagonal cells next to mine.
-                    if (hiddenBoard[i-1][j-1].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i+1][j-1].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
+                    if ((i-1) >= 0 && (j-1) >= 0) {
+                        if (hiddenBoard[i-1][j-1].equals(" * ")) mineCounter++;
+                    }
+                    if ((i-1) >= 0 && (j+1) <= size) {
+                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
+                    }
+                    if ((i+1) <= size && (j-1) >= 0) {
+                        if (hiddenBoard[i+1][j-1].equals(" * ")) mineCounter++;
+                    }
+                    if ((i-1) >= 0 && (j+1) <= size) {
+                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
+                    }
                     //Above, below and to the sides of mine.
-                    if (hiddenBoard[i][j-1].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i-1][j].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i][j+1].equals(" * ")) mineCounter++;
-                    if (hiddenBoard[i+1][j].equals(" * ")) mineCounter++;
+                    if ((j-1) >= 0) {
+                        if (hiddenBoard[i][j-1].equals(" * ")) mineCounter++;
+                    }
+                    if ((i-1) >= 0) {
+                        if (hiddenBoard[i-1][j].equals(" * ")) mineCounter++;
+                    }
+                    if ((j+1) <= size) {
+                        if (hiddenBoard[i][j+1].equals(" * ")) mineCounter++;
+                    }
+                    if ((i+1) <= size) {
+                        if (hiddenBoard[i+1][j].equals(" * ")) mineCounter++;
+                    }
                 }
             }
         }
@@ -104,19 +154,36 @@ public class Board {
     }
 
     //Reveals amount of mines surrounding given square and replaces empty square with number of mines.
+    //FIXED: Out of Bounds Exception handling. Needs more testing.
     public int minesAround(int row, int col) {
         int mineCounter = 0;
         if (!hiddenBoard[row][col].equals(" * ")) {
             //Diagonal cells next to mine.
-            if (hiddenBoard[row-1][col-1].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row+1][col-1].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
+            if ((row-1) >= 0 && (col-1) >= 0) {
+                if (hiddenBoard[row-1][col-1].equals(" * ")) mineCounter++;
+            }
+            if ((row-1) >= 0 && (col+1) < size) {
+                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
+            }
+            if ((row+1) < size && (col-1) >= 0) {
+                if (hiddenBoard[row+1][col-1].equals(" * ")) mineCounter++;
+            }
+            if ((row-1) >= 0 && (col+1) < size) {
+                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
+            }
             //Above, below and to the sides of mine.
-            if (hiddenBoard[row][col-1].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row-1][col].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row][col+1].equals(" * ")) mineCounter++;
-            if (hiddenBoard[row+1][col].equals(" * ")) mineCounter++;
+            if ((col-1) >= 0) {
+                if (hiddenBoard[row][col-1].equals(" * ")) mineCounter++;
+            }
+            if ((row-1) >= 0) {
+                if (hiddenBoard[row-1][col].equals(" * ")) mineCounter++;
+            }
+            if ((col+1) < size) {
+                if (hiddenBoard[row][col+1].equals(" * ")) mineCounter++;
+            }
+            if ((row+1) < size) {
+                if (hiddenBoard[row+1][col].equals(" * ")) mineCounter++;
+            }
         }
         visibleBoard[row][col] = " " + mineCounter + " ";
         return mineCounter;
