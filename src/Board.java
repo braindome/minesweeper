@@ -204,6 +204,8 @@ public class Board {
         if (position.isEmpty()) {
             visibleBoard[row][col] = "x";
             return true;
+        } else if (position.contains(position)) {
+            System.out.println("Position taken. Try again:");
         }
         return true;
     }
