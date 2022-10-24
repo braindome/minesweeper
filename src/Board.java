@@ -9,6 +9,7 @@ public class Board {
     //private final String[][] visibleBoard;
     final String[][] visibleBoard;                  //Visible board.
     private final String[][] hiddenBoard;
+    private int minesAmount = 0;
 
     Random random = new Random();
 
@@ -57,6 +58,35 @@ public class Board {
         }
     }
 
+    public void printHiddenBoard() {
+        //print hidden board when the user looses or wins
+        System.out.print("   ");
+        for (int i = 0; i < size; i++) {
+            if (i < 10) {
+                System.out.print(" " + i + "  ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i + " ");
+            }
+        }
+        System.out.println();
+        for (int i = 0; i < size; i++) {
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            }
+            if (i > 9) {
+                System.out.print(" " + i );
+            }
+            for (int j = 0; j < size; j++) {
+                String position = hiddenBoard[i][j];
+                System.out.print(position.isEmpty() ? "   " : position);
+                System.out.print("|");
+            }
+            System.out.println();
+        }
+    }
+
+
     //Generates mines across the game board. Fixed proportion at 20% of the game area. UPDATE: mines are not generated within the 3x3 starting area.
     public void mineGenerator() {
         int numOfMines = (size*size)/5;
@@ -67,6 +97,7 @@ public class Board {
 
             if (!visibleBoard[mineRow][mineCol].equals(" X ")) {
                 hiddenBoard[mineRow][mineCol] = " * ";
+                minesAmount++;
 
             }
 //            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
@@ -75,7 +106,12 @@ public class Board {
         }
     }
 
+    public Boolean hasHitMine(int row, int col){
+        return hiddenBoard[row][col] == " * ";
+    }
 
+
+    //Ska vi ha kvar denna eller ta bort den?
 
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
     //This square is always mine-free, and it starts the game.
@@ -110,10 +146,10 @@ public class Board {
         if ((row+1) < size) {
             visibleBoard[row+1][col] = " X ";
         }
-
-
     }
 
+
+    //Ska vi ha kvar denna eller ta bort den?
 
     //Checks EVERY SQUARE for proximity to mines, adds them to a counter and returns the value.
     public int boardHints() {
@@ -211,46 +247,25 @@ public class Board {
     }
 
 
-    public boolean checkWin()
-            //not working right now
+    public boolean checkWin(){
 
-            //if returns true the game is over and player won
-            //if returns false the game isn't over
-            //should maybe return also if the player lost? Or maybe nothing
-    {
-        for(int i=0; i<size; i++)
-        {
-            for(int j=0; j<size; j++)
-            {
-                if(visibleBoard[i][j].equals("0") /*==0*/)
-                {
-                    if(!hiddenBoard[i][j].equals("100") /*!=100*/)
-                    {
-                        return false;
-                    }
+        /*
+            Calculate how many "cells" there are and also subtract the mine "cells"
+            When user explore a "cell" substract from how many emptyCellsLeft
+            When we hit 0 amount of empty "cells", that means there is no more "cells" to open and user won
+         */
+
+        int emptyCellsLeft = (size * size) - minesAmount;
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                String cellInfo = visibleBoard[row][col];
+                if (!cellInfo.isEmpty() && !cellInfo.equals(" X ") && Integer.parseInt(cellInfo.replaceAll("\\s+","")) >= 0) {
+                    emptyCellsLeft--;
                 }
             }
         }
-        return true;
+        return emptyCellsLeft == 0;
     }
 
-
-
-
- /*  private void setMines() {
-        //ranodm placement of mines
-
-        Random rnd = new Random();
-
-         for(int i = 0; i < mineCells; i++){
-             int x = rnd.nextInt(/*row kanske?);
-             int y = rnd.nextInt(/*col kanske);
-
-             if (!cells[x][y].isMine())
-                 cells[x][y].setMine(true);
-            else
-                 i--;
-        }
-}*/
 
 }

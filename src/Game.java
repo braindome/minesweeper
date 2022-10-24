@@ -43,6 +43,7 @@ public class Game {
 
         board = new Board(size);
         board.printVisibleBoard();
+
         //board.mineGenerator();
 
         } catch (Exception e) {
@@ -86,7 +87,6 @@ public class Game {
             //here we put in what we want to play
 
         while (playGame){
-
             try {
                 int rowNumber;
                 int colNumber;
@@ -99,20 +99,30 @@ public class Game {
 
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
-                    board.startingAreaClear(rowNumber, colNumber);
+                    // board.startingAreaClear(rowNumber, colNumber);
                     firstMove = false;
                     board.mineGenerator();
                 }
 
                 board.minesAround(rowNumber, colNumber);
+
+                if (board.hasHitMine(rowNumber, colNumber)) {
+                    board.printHiddenBoard();
+                    System.out.println("You lost");
+                    keepPlaying = false;
+                    break;
+                }
+
                 board.printVisibleBoard();
+
 
                 //fixa till checkwin så att det stämmer på riktigt
                 //denna metoden ska ta emot true eller false
                 //när någon spelat och förlorat/vunnit så ska det bli false
-           /*     if(board.checkWin()){
+                if(board.checkWin()){
+                    board.printHiddenBoard();
                     player.increaseScore();
-                }*/
+                }
 
 
             } catch (Exception e) {
@@ -121,11 +131,6 @@ public class Game {
                 //ta bort sen men just nu - skriver man fel så avslutas omgången
                 playGame=false;
             }
-
         }
-
-
     }
-
-
 }
