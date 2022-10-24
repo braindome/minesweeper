@@ -100,9 +100,9 @@ public class Board {
                 minesAmount++;
 
             }
-//            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-//                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-//            }
+            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
+                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
+            }
         }
     }
 
@@ -111,119 +111,57 @@ public class Board {
     }
 
 
-    //Ska vi ha kvar denna eller ta bort den?
 
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
     //This square is always mine-free, and it starts the game.
-    //FIXED: Out of Bounds exception handling. Needs more testing.
     public void startingAreaClear(int row, int col) {
-
         visibleBoard[row][col] = " X ";
-        System.out.println("start ok");
-        if ((row-1) >= 0 && ((col-1) >= 0)) {
-            //System.out.println("inside if 1");
-            visibleBoard[row-1][col-1] = " X ";
-            //System.out.println("pos 1 ok");
-        }
-        if ((row-1) >= 0 && (col+1) < size) {
-            visibleBoard[row-1][col+1] = " X ";
-        }
-        if ((row+1) < size && (col-1) >= 0) {
-            visibleBoard[row+1][col-1] = " X ";
-        }
-        if ((row+1) < size && (col+1) < size) {
-            visibleBoard[row+1][col+1] = " X ";
-        }
-        if ((col-1) >= 0) {
-            visibleBoard[row][col-1] = " X ";
-        }
-        if ((row-1) >= 0) {
-            visibleBoard[row-1][col] = " X ";
-        }
-        if ((col+1) < size) {
-            visibleBoard[row][col+1] = " X ";
-        }
-        if ((row+1) < size) {
-            visibleBoard[row+1][col] = " X ";
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j <2; j++) {
+                try {
+                    visibleBoard[row+i][col+j] = " X ";
+                } catch (Exception e) {}
+            }
         }
     }
 
+    //Shows number of mines around each square in the starting safe area.
+    //To be called right after minefield generator.
+    public void startingAreaHints(int row, int col) {
+        visibleBoard[row][col] = " X ";
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j <2; j++) {
+                try {
+                    int x = row+i;
+                    int y = col+j;
+                    visibleBoard[row+i][col+j] = " " + minesAround(x, y) + " ";
+                } catch (Exception e) {}
+            }
+        }
+    }
 
-    //Ska vi ha kvar denna eller ta bort den?
+    //If square is surrounded by zero mines, methods loops through the square's neighbors and checks them for mines.
+    //It then updates the new squares with the amount of mines surrounding it.
+    public void revealNearbyTiles(int row, int col) {
+        System.out.println("reveal tiles");
+        boolean surrounded = false;
+        while (!surrounded) {
+            for (int i = (row-1); i < (row+2); i++) {
+                for (int j = (col-1); j < (col+2); j++) {
+                    try {
+                        //minesAround(i, j);
+                        visibleBoard[i][j] = " " + minesAround(i, j) + " ";
+                        if (minesAround(i, j) != 0) {
+                            surrounded = true;
+                        }
+                    } catch (Exception e) {}
 
-    //Checks EVERY SQUARE for proximity to mines, adds them to a counter and returns the value.
-    public int boardHints() {
-        int mineCounter = 0;
-        for (int i = 0; i <= size; i++) {
-            for (int j = 0; j <= size; j++) {
-                if (!hiddenBoard[i][j].equals(" * ")) {
-                    //Diagonal cells next to mine.
-                    if ((i-1) >= 0 && (j-1) >= 0) {
-                        if (hiddenBoard[i-1][j-1].equals(" * ")) mineCounter++;
-                    }
-                    if ((i-1) >= 0 && (j+1) <= size) {
-                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
-                    }
-                    if ((i+1) <= size && (j-1) >= 0) {
-                        if (hiddenBoard[i+1][j-1].equals(" * ")) mineCounter++;
-                    }
-                    if ((i-1) >= 0 && (j+1) <= size) {
-                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
-                    }
-                    //Above, below and to the sides of mine.
-                    if ((j-1) >= 0) {
-                        if (hiddenBoard[i][j-1].equals(" * ")) mineCounter++;
-                    }
-                    if ((i-1) >= 0) {
-                        if (hiddenBoard[i-1][j].equals(" * ")) mineCounter++;
-                    }
-                    if ((j+1) <= size) {
-                        if (hiddenBoard[i][j+1].equals(" * ")) mineCounter++;
-                    }
-                    if ((i+1) <= size) {
-                        if (hiddenBoard[i+1][j].equals(" * ")) mineCounter++;
-                    }
+
                 }
             }
         }
-        return mineCounter;
     }
 
-    //Reveals amount of mines surrounding given square and replaces empty square with number of mines.
-    //FIXED: Out of Bounds Exception handling. Needs more testing.
-    public int minesAround(int row, int col) {
-        int mineCounter = 0;
-        if (!hiddenBoard[row][col].equals(" * ")) {
-            //Diagonal cells next to mine.
-            if ((row-1) >= 0 && (col-1) >= 0) {
-                if (hiddenBoard[row-1][col-1].equals(" * ")) mineCounter++;
-            }
-            if ((row-1) >= 0 && (col+1) < size) {
-                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
-            }
-            if ((row+1) < size && (col-1) >= 0) {
-                if (hiddenBoard[row+1][col-1].equals(" * ")) mineCounter++;
-            }
-            if ((row-1) >= 0 && (col+1) < size) {
-                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
-            }
-            //Above, below and to the sides of mine.
-            if ((col-1) >= 0) {
-                if (hiddenBoard[row][col-1].equals(" * ")) mineCounter++;
-            }
-            if ((row-1) >= 0) {
-                if (hiddenBoard[row-1][col].equals(" * ")) mineCounter++;
-            }
-            if ((col+1) < size) {
-                if (hiddenBoard[row][col+1].equals(" * ")) mineCounter++;
-            }
-            if ((row+1) < size) {
-                if (hiddenBoard[row+1][col].equals(" * ")) mineCounter++;
-            }
-        }
-        visibleBoard[row][col] = " " + mineCounter + " ";
-        return mineCounter;
-    }
 
     //These methods place or remove a flag from the board.
     public void placeFlag(int row, int col) {
@@ -234,11 +172,31 @@ public class Board {
         visibleBoard[row][col] = "   ";
     }
 
+    //IMPROVED minesAround using more loops!!!
+    public int minesAround(int row, int col) {
+        int mineCounter = 0;
+        //Counters go through a 3x3 grid surrounding the chosen square.
+        for (int i = -1; i < 2; i++ ) {
+            for (int j = -1; j < 2; j++) {
+                //Try-catch block if counters try to access forbidden indexes.
+                try {
+                    //Adds 1 to counter if nearby square has a mine.
+                    if (hiddenBoard[row+i][col+j].equals(" * ")) {
+                        mineCounter = mineCounter + 1;
+                    }
+                } catch (Exception e) {}
+
+            }
+        }
+        //visibleBoard[row][col] = " " + mineCounter + " ";
+        return mineCounter;
+    }
+
     public Boolean changePlace(int row, int col){
         //change place of marker
           String position = visibleBoard[row][col];
         if (position.isEmpty()) {
-            visibleBoard[row][col] = "x";
+            visibleBoard[row][col] = " X ";
             return true;
         } else if (position.contains(position)) {
             System.out.println("Position taken. Try again:");

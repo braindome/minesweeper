@@ -99,12 +99,24 @@ public class Game {
 
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
-                    // board.startingAreaClear(rowNumber, colNumber);
+                    board.startingAreaClear(rowNumber, colNumber);
                     firstMove = false;
                     board.mineGenerator();
+                    board.startingAreaHints(rowNumber, colNumber);
                 }
 
+
+
+
                 board.minesAround(rowNumber, colNumber);
+                board.visibleBoard[rowNumber][colNumber] = " " + board.minesAround(rowNumber, colNumber) + " ";
+
+                if (board.minesAround(rowNumber, colNumber) == 0) {
+                    System.out.println("inside if statement");
+                    board.revealNearbyTiles(rowNumber, colNumber);
+                    board.printVisibleBoard();
+                }
+
 
                 if (board.hasHitMine(rowNumber, colNumber)) {
                     board.printHiddenBoard();
