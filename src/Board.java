@@ -1,5 +1,6 @@
 import java.util.Random;
 
+
 public class Board {
 
     int size;
@@ -26,7 +27,7 @@ public class Board {
                 hiddenBoard[i][j] = "";
             }
         }
-      //  setMines();
+        //  setMines();
     }
 
     //Displays the public game board.
@@ -89,7 +90,7 @@ public class Board {
 
     //Generates mines across the game board. Fixed proportion at 20% of the game area. UPDATE: mines are not generated within the 3x3 starting area.
     public void mineGenerator() {
-        int numOfMines = (size*size)/5;
+        int numOfMines = (size * size) / 5;
         //System.out.println("N of mines: " + numOfMines);
         for (int i = 0; i <= numOfMines; i++) {
             int mineRow = random.nextInt(size);
@@ -100,13 +101,15 @@ public class Board {
                 minesAmount++;
 
             }
-//            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-//                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-//            }
+  /*        if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
+               System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
+           }
+
+   */
         }
     }
 
-    public Boolean hasHitMine(int row, int col){
+    public Boolean hasHitMine(int row, int col) {
         return hiddenBoard[row][col] == " * ";
     }
 
@@ -120,31 +123,31 @@ public class Board {
 
         visibleBoard[row][col] = " X ";
         System.out.println("start ok");
-        if ((row-1) >= 0 && ((col-1) >= 0)) {
+        if ((row - 1) >= 0 && ((col - 1) >= 0)) {
             //System.out.println("inside if 1");
-            visibleBoard[row-1][col-1] = " X ";
+            visibleBoard[row - 1][col - 1] = " X ";
             //System.out.println("pos 1 ok");
         }
-        if ((row-1) >= 0 && (col+1) < size) {
-            visibleBoard[row-1][col+1] = " X ";
+        if ((row - 1) >= 0 && (col + 1) < size) {
+            visibleBoard[row - 1][col + 1] = " X ";
         }
-        if ((row+1) < size && (col-1) >= 0) {
-            visibleBoard[row+1][col-1] = " X ";
+        if ((row + 1) < size && (col - 1) >= 0) {
+            visibleBoard[row + 1][col - 1] = " X ";
         }
-        if ((row+1) < size && (col+1) < size) {
-            visibleBoard[row+1][col+1] = " X ";
+        if ((row + 1) < size && (col + 1) < size) {
+            visibleBoard[row + 1][col + 1] = " X ";
         }
-        if ((col-1) >= 0) {
-            visibleBoard[row][col-1] = " X ";
+        if ((col - 1) >= 0) {
+            visibleBoard[row][col - 1] = " X ";
         }
-        if ((row-1) >= 0) {
-            visibleBoard[row-1][col] = " X ";
+        if ((row - 1) >= 0) {
+            visibleBoard[row - 1][col] = " X ";
         }
-        if ((col+1) < size) {
-            visibleBoard[row][col+1] = " X ";
+        if ((col + 1) < size) {
+            visibleBoard[row][col + 1] = " X ";
         }
-        if ((row+1) < size) {
-            visibleBoard[row+1][col] = " X ";
+        if ((row + 1) < size) {
+            visibleBoard[row + 1][col] = " X ";
         }
     }
 
@@ -158,30 +161,30 @@ public class Board {
             for (int j = 0; j <= size; j++) {
                 if (!hiddenBoard[i][j].equals(" * ")) {
                     //Diagonal cells next to mine.
-                    if ((i-1) >= 0 && (j-1) >= 0) {
-                        if (hiddenBoard[i-1][j-1].equals(" * ")) mineCounter++;
+                    if ((i - 1) >= 0 && (j - 1) >= 0) {
+                        if (hiddenBoard[i - 1][j - 1].equals(" * ")) mineCounter++;
                     }
-                    if ((i-1) >= 0 && (j+1) <= size) {
-                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
+                    if ((i - 1) >= 0 && (j + 1) <= size) {
+                        if (hiddenBoard[i - 1][j + 1].equals(" * ")) mineCounter++;
                     }
-                    if ((i+1) <= size && (j-1) >= 0) {
-                        if (hiddenBoard[i+1][j-1].equals(" * ")) mineCounter++;
+                    if ((i + 1) <= size && (j - 1) >= 0) {
+                        if (hiddenBoard[i + 1][j - 1].equals(" * ")) mineCounter++;
                     }
-                    if ((i-1) >= 0 && (j+1) <= size) {
-                        if (hiddenBoard[i-1][j+1].equals(" * ")) mineCounter++;
+                    if ((i - 1) >= 0 && (j + 1) <= size) {
+                        if (hiddenBoard[i - 1][j + 1].equals(" * ")) mineCounter++;
                     }
                     //Above, below and to the sides of mine.
-                    if ((j-1) >= 0) {
-                        if (hiddenBoard[i][j-1].equals(" * ")) mineCounter++;
+                    if ((j - 1) >= 0) {
+                        if (hiddenBoard[i][j - 1].equals(" * ")) mineCounter++;
                     }
-                    if ((i-1) >= 0) {
-                        if (hiddenBoard[i-1][j].equals(" * ")) mineCounter++;
+                    if ((i - 1) >= 0) {
+                        if (hiddenBoard[i - 1][j].equals(" * ")) mineCounter++;
                     }
-                    if ((j+1) <= size) {
-                        if (hiddenBoard[i][j+1].equals(" * ")) mineCounter++;
+                    if ((j + 1) <= size) {
+                        if (hiddenBoard[i][j + 1].equals(" * ")) mineCounter++;
                     }
-                    if ((i+1) <= size) {
-                        if (hiddenBoard[i+1][j].equals(" * ")) mineCounter++;
+                    if ((i + 1) <= size) {
+                        if (hiddenBoard[i + 1][j].equals(" * ")) mineCounter++;
                     }
                 }
             }
@@ -195,30 +198,30 @@ public class Board {
         int mineCounter = 0;
         if (!hiddenBoard[row][col].equals(" * ")) {
             //Diagonal cells next to mine.
-            if ((row-1) >= 0 && (col-1) >= 0) {
-                if (hiddenBoard[row-1][col-1].equals(" * ")) mineCounter++;
+            if ((row - 1) >= 0 && (col - 1) >= 0) {
+                if (hiddenBoard[row - 1][col - 1].equals(" * ")) mineCounter++;
             }
-            if ((row-1) >= 0 && (col+1) < size) {
-                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
+            if ((row - 1) >= 0 && (col + 1) < size) {
+                if (hiddenBoard[row - 1][col + 1].equals(" * ")) mineCounter++;
             }
-            if ((row+1) < size && (col-1) >= 0) {
-                if (hiddenBoard[row+1][col-1].equals(" * ")) mineCounter++;
+            if ((row + 1) < size && (col - 1) >= 0) {
+                if (hiddenBoard[row + 1][col - 1].equals(" * ")) mineCounter++;
             }
-            if ((row-1) >= 0 && (col+1) < size) {
-                if (hiddenBoard[row-1][col+1].equals(" * ")) mineCounter++;
+            if ((row - 1) >= 0 && (col + 1) < size) {
+                if (hiddenBoard[row - 1][col + 1].equals(" * ")) mineCounter++;
             }
             //Above, below and to the sides of mine.
-            if ((col-1) >= 0) {
-                if (hiddenBoard[row][col-1].equals(" * ")) mineCounter++;
+            if ((col - 1) >= 0) {
+                if (hiddenBoard[row][col - 1].equals(" * ")) mineCounter++;
             }
-            if ((row-1) >= 0) {
-                if (hiddenBoard[row-1][col].equals(" * ")) mineCounter++;
+            if ((row - 1) >= 0) {
+                if (hiddenBoard[row - 1][col].equals(" * ")) mineCounter++;
             }
-            if ((col+1) < size) {
-                if (hiddenBoard[row][col+1].equals(" * ")) mineCounter++;
+            if ((col + 1) < size) {
+                if (hiddenBoard[row][col + 1].equals(" * ")) mineCounter++;
             }
-            if ((row+1) < size) {
-                if (hiddenBoard[row+1][col].equals(" * ")) mineCounter++;
+            if ((row + 1) < size) {
+                if (hiddenBoard[row + 1][col].equals(" * ")) mineCounter++;
             }
         }
         visibleBoard[row][col] = " " + mineCounter + " ";
@@ -234,9 +237,9 @@ public class Board {
         visibleBoard[row][col] = "   ";
     }
 
-    public Boolean changePlace(int row, int col){
+    public Boolean changePlace(int row, int col) {
         //change place of marker
-          String position = visibleBoard[row][col];
+        String position = visibleBoard[row][col];
         if (position.isEmpty()) {
             visibleBoard[row][col] = "x";
             return true;
@@ -247,7 +250,7 @@ public class Board {
     }
 
 
-    public boolean checkWin(){
+    public boolean checkWin() {
 
         /*
             Calculate how many "cells" there are and also subtract the mine "cells"
@@ -259,11 +262,21 @@ public class Board {
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
                 String cellInfo = visibleBoard[row][col];
-                if (!cellInfo.isEmpty() && !cellInfo.equals(" X ") && Integer.parseInt(cellInfo.replaceAll("\\s+","")) >= 0) {
+                if (!cellInfo.isEmpty() && !cellInfo.equals(" X ") && Integer.parseInt(cellInfo.replaceAll("\\s+", "")) >= 0) {
                     emptyCellsLeft--;
                 }
             }
         }
         return emptyCellsLeft == 0;
     }
+
+    //flood fill algorithm to find the safe "cells"
+    public void floodFill(int row, int col) {
+
+
+
+
+    }
+
+
 }
