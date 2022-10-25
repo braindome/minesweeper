@@ -151,16 +151,16 @@ public class Board {
                     try {
                         //minesAround(i, j);
                         visibleBoard[i][j] = " " + minesAround(i, j) + " ";
+                        System.out.println("Counters: " +  i + ", " + j);
                         if (minesAround(i, j) != 0) {
                             surrounded = true;
                         }
                     } catch (Exception e) {}
-
-
                 }
             }
         }
     }
+
 
 
     //These methods place or remove a flag from the board.
