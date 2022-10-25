@@ -101,21 +101,17 @@ public class Game {
                 if(firstMove){
                     board.startingAreaClear(rowNumber, colNumber);
                     firstMove = false;
+
                     board.mineGenerator();
+                    board.revealNearbyTiles(rowNumber, colNumber);
                     board.startingAreaHints(rowNumber, colNumber);
+
                 }
-
-
 
 
                 board.minesAround(rowNumber, colNumber);
                 board.visibleBoard[rowNumber][colNumber] = " " + board.minesAround(rowNumber, colNumber) + " ";
-
-                if (board.minesAround(rowNumber, colNumber) == 0) {
-                    System.out.println("inside if statement");
-                    board.revealNearbyTiles(rowNumber, colNumber);
-                    board.printVisibleBoard();
-                }
+                board.revealNearbyTiles(rowNumber, colNumber);
 
 
                 if (board.hasHitMine(rowNumber, colNumber)) {
