@@ -2,59 +2,71 @@ public class Cell {
 
     // Attributes of Cell
 
-    private int x;
+    private int x; // X coordinate
 
-    private int y;
+    private int y; // coordinate
 
-    private boolean mine;
+    private boolean isMine;  // will be true if cell has a mine
 
-    private boolean flag;
+    private boolean isFlag; // will be true if cell is flagged
 
-    private boolean visible;
+    private boolean isVisible;
 
     private int nearMines;
 
-    public Cell() {
+    public Cell(int x, int y, boolean isMine) {
         this.x = x;
         this.y = y;
+        this.isMine = isMine;
+        this.isFlag = false;
+        this.isVisible = false;
     }
-    public void setVisible (boolean visible){
-        this.visible = visible;
+
+    public int getX() {
+        return x;
     }
-    public boolean isVisible(){
-        return visible;
+
+    public void setX(int x) {
+        this.x = x;
     }
-    public void setMine(boolean mine){
-        this.mine = mine;
+
+    public int getY() {
+        return y;
     }
-    public boolean isMine(){
-        return mine;
+
+    public void setY(int y) {
+        this.y = y;
     }
-    public void setNearMines(int nearMines){
+
+    public boolean isMine() {
+        return isMine;
+    }
+
+    public void setMine(boolean mine) {
+        isMine = mine;
+    }
+
+    public boolean isFlag() {
+        return isFlag;
+    }
+
+    public void setFlag(boolean flag) {
+        isFlag = flag;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public int getNearMines() {
+        return nearMines;
+    }
+
+    public void setNearMines(int nearMines) {
         this.nearMines = nearMines;
     }
-    public int getNearMines(){
-        return nearMines;
-
-    }
-
-    // Method for placing a flag
-
-    public void placeFlag() {
-
-        if(flag) flag  = false;
-
-        else {
-            if(!visible) flag = true;
-        }
-   }
-
-    public boolean isFlag(){
-        return flag;
-    }
-
-
-
-
-
 }
