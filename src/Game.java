@@ -98,11 +98,22 @@ public class Game {
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
                     board.startingAreaClear(rowNumber, colNumber);
+
+                    firstMove = false;
+                    board.mineGenerator();
+                    board.startingAreaHints(rowNumber, colNumber);
+
+
                     board.mineGenerator();
                     firstMove = false;
+
                 }
 
+
                 board.minesAround(rowNumber, colNumber);
+                board.visibleBoard[rowNumber][colNumber] = " " + board.minesAround(rowNumber, colNumber) + " ";
+                board.revealNearbyTiles(rowNumber, colNumber);
+
 
                 if (board.hasHitMine(rowNumber, colNumber)) {
                     board.printHiddenBoard();
