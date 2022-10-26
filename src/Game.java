@@ -101,9 +101,7 @@ public class Game {
                 if(firstMove){
                     board.startingAreaClear(rowNumber, colNumber);
                     firstMove = false;
-
                     board.mineGenerator();
-                    board.revealNearbyTiles(rowNumber, colNumber);
                     board.startingAreaHints(rowNumber, colNumber);
 
                 }

@@ -32,7 +32,7 @@ public class Board {
     //Displays the public game board.
     public void printVisibleBoard() {
         //print board
-        System.out.print("XXX");
+        System.out.print("   ");
         for (int i = 0; i < size; i++) {
             if (i < 10) {
                 System.out.print(" " + i + "  ");
@@ -165,42 +165,22 @@ public class Board {
     public void revealNearbyTiles(int row, int col) {
         System.out.println("flood fill function");
         if (row >= 0 && row < size && col >= 0 && col < size) {
-            minesAround(row, col);
             visibleBoard[row][col] = " " + minesAround(row, col) + " ";
             for (int i = -1; i < 2; i++) {
-                //System.out.println("first for loop");
                 for (int j = -1; j < 2; j++) {
-                    //System.out.println("second for loop");
-
                     if ((i == 0 || j == 0) && !(i == 0 && j == 0)) {
-                        System.out.println("first if block");
-                        System.out.println("Mines around this square: " + minesAround(row+i, col+j));
                         try {
-                            if (minesAround(row+i, col+j) == 0 && !hiddenBoard[row+i][col+j].equals(" * ") && visibleBoard[row+i][col+j].equals("XXX")) {
-                                System.out.println("second if block");
+                            if (minesAround(row+i, col+j) == 0 && visibleBoard[row+i][col+j].equals("XXX") && !hiddenBoard[row+i][col+j].equals(" * ")) {
+                                System.out.println("second if");
+                                visibleBoard[row+i][col+j] = " " + minesAround(row+i, col+j) + " ";
                                 revealNearbyTiles(row+i, col+j);
                             }
                         } catch (Exception e) {}
                     }
-
                 }
             }
         }
-
     }
-
-//    public void revealNearbyTilesSHORT(int row, int col) {
-//        System.out.println("inside flood fill");
-//        String s = visibleBoard[row][col];
-//        int n = Integer.parseInt(s);
-//        if (n > 0) return;
-//
-//        visibleBoard[row][col] = " " + minesAround(row, col) + " ";
-//        revealNearbyTiles(row+1, col);
-//        revealNearbyTiles(row-1, col);
-//        revealNearbyTiles(row, col+1);
-//        revealNearbyTiles(row, col-1);
-//    }
 
 
 
@@ -228,7 +208,6 @@ public class Board {
                 } catch (Exception e) {}
             }
         }
-        //visibleBoard[row][col] = " " + mineCounter + " ";
         return mineCounter;
     }
 
