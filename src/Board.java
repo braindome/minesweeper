@@ -1,13 +1,8 @@
 import java.util.Random;
 
-
 public class Board {
-
     int size;
 
-    private int mineCells;
-
-    //private final String[][] visibleBoard;
     final String[][] visibleBoard;                  //Visible board.
     private final String[][] hiddenBoard;
     private int minesAmount = 0;
@@ -27,7 +22,6 @@ public class Board {
                 hiddenBoard[i][j] = "";
             }
         }
-        //  setMines();
     }
 
     //Displays the public game board.
@@ -42,6 +36,7 @@ public class Board {
                 System.out.print(" " + (i + 1) + " ");
             }
         }
+
         System.out.println();
         for (int i = 0; i < size; i++) {
             if (i < 10) {
@@ -87,25 +82,18 @@ public class Board {
         }
     }
 
-
     //Generates mines across the game board. Fixed proportion at 20% of the game area. UPDATE: mines are not generated within the 3x3 starting area.
     public void mineGenerator() {
         int numOfMines = (size * size) / 5;
-        //System.out.println("N of mines: " + numOfMines);
+
         for (int i = 0; i <= numOfMines; i++) {
             int mineRow = random.nextInt(size);
             int mineCol = random.nextInt(size);
 
-            if (!visibleBoard[mineRow][mineCol].equals(" X ")) {
+            if (!visibleBoard[mineRow][mineCol].equals(" e ")) {
                 hiddenBoard[mineRow][mineCol] = " * ";
                 minesAmount++;
-
             }
-  /*        if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-               System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-           }
-
-   */
         }
     }
 
@@ -113,23 +101,22 @@ public class Board {
         return hiddenBoard[row][col] == " * ";
     }
 
-
-    //Ska vi ha kvar denna eller ta bort den?
-
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
     //This square is always mine-free, and it starts the game.
     //FIXED: Out of Bounds exception handling. Needs more testing.
     public void startingAreaClear(int row, int col) {
-        visibleBoard[row][col] = " X ";
+        //Bytte ut X mot e för tydlighet, tyckte det var svårt att se
+
+       visibleBoard[row][col] = " e ";
         for (int i = -1; i < 2; i++) {
-            for (int j = -1; j <2; j++) {
+            for (int j = -1; j < 2; j++) {
                 try {
-                    visibleBoard[row+i][col+j] = " X ";
-                } catch (Exception e) {}
+                    visibleBoard[row + i][col + j] = " e ";
+                } catch (Exception e) {
+                }
             }
         }
     }
-
 
     //Ska vi ha kvar denna eller ta bort den?
 
@@ -175,31 +162,23 @@ public class Board {
     //FIXED: Out of Bounds Exception handling. Needs more testing.
     public void minesAround(int row, int col) {
         int mineCounter = 0;
-        for (int i = -1; i < 2; i++ ) {
+        for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 try {
-                    if (hiddenBoard[row+i][col+j].equals(" * ")) {
+                    if (hiddenBoard[row + i][col + j].equals(" * ")) {
                         mineCounter = mineCounter + 1;
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         }
         visibleBoard[row][col] = " " + mineCounter + " ";
     }
 
-    //These methods place or remove a flag from the board.
-    public void placeFlag(int row, int col) {
-        visibleBoard[row][col] = " ? ";
-    }
-
-    public void removeFlag(int row, int col) {
-        visibleBoard[row][col] = "   ";
-    }
-
     public Boolean changePlace(int row, int col) {
         //change place of marker
         String position = visibleBoard[row][col];
-        if (position.isEmpty()) {
+        if (position.isEmpty() || position.equals(" e ")) {
             visibleBoard[row][col] = "x";
             return true;
         } else if (position.contains(position)) {
@@ -208,34 +187,26 @@ public class Board {
         return true;
     }
 
+        public boolean checkWin () {
+            //Calculate how many "cells" there are and also subtract the mine "cells"
+            //When user explore a "cell" substract from how many emptyCellsLeft
+            //When we hit 0 amount of empty "cells", that means there is no more "cells" to open and user won
 
-    public boolean checkWin() {
-
-        /*
-            Calculate how many "cells" there are and also subtract the mine "cells"
-            When user explore a "cell" substract from how many emptyCellsLeft
-            When we hit 0 amount of empty "cells", that means there is no more "cells" to open and user won
-         */
-
-        int emptyCellsLeft = (size * size) - minesAmount;
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                String cellInfo = visibleBoard[row][col];
-                if (!cellInfo.isEmpty() && !cellInfo.equals(" X ") && Integer.parseInt(cellInfo.replaceAll("\\s+", "")) >= 0) {
-                    emptyCellsLeft--;
+            int emptyCellsLeft = (size * size) - minesAmount;
+            for (int row = 0; row < size; row++) {
+                for (int col = 0; col < size; col++) {
+                    String cellInfo = visibleBoard[row][col];
+                    if (!cellInfo.isEmpty() && !cellInfo.equals(" e ") && Integer.parseInt(cellInfo.replaceAll("\\s+", "")) >= 0) {
+                        emptyCellsLeft--;
+                    }
                 }
             }
+            return emptyCellsLeft == 0;
         }
-        return emptyCellsLeft == 0;
+
+        //flood fill algorithm to find the safe "cells"
+        public void floodFill ( int row, int col){
+//ska vi ha denna?
+
+        }
     }
-
-    //flood fill algorithm to find the safe "cells"
-    public void floodFill(int row, int col) {
-
-
-
-
-    }
-
-
-}
