@@ -30,20 +30,20 @@ public class Board {
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
             if (i < 10) {
-                System.out.print(" " + i + "  ");
+                System.out.print(" " + (i+1) + "  ");
             }
             if (i > 9) {
-                System.out.print(" " + i + " ");
+                System.out.print(" " + (i+1) + " ");
             }
         }
 
         System.out.println();
         for (int i = 0; i < size; i++) {
             if (i < 10) {
-                System.out.print(" " + i + " ");
+                System.out.print(" " + (i+1) + " ");
             }
             if (i > 9) {
-                System.out.print(" " + i);
+                System.out.print(" " + (i+1));
             }
             for (int j = 0; j < size; j++) {
                 String position = visibleBoard[i][j];
@@ -59,19 +59,19 @@ public class Board {
         System.out.print("   ");
         for (int i = 0; i < size; i++) {
             if (i < 10) {
-                System.out.print(" " + i + "  ");
+                System.out.print(" " + (i+1) + "  ");
             }
             if (i > 9) {
-                System.out.print(" " + i + " ");
+                System.out.print(" " + (i+1) + " ");
             }
         }
         System.out.println();
         for (int i = 0; i < size; i++) {
             if (i < 10) {
-                System.out.print(" " + i + " ");
+                System.out.print(" " + (i+1) + " ");
             }
             if (i > 9) {
-                System.out.print(" " + i);
+                System.out.print(" " + (i+1));
             }
             for (int j = 0; j < size; j++) {
                 String position = hiddenBoard[i][j];
@@ -88,7 +88,7 @@ public class Board {
         int numOfMines = (size * size) / 5;
 
         for (int i = 0; i <= numOfMines; i++) {
-            int mineRow = random.nextInt(size);
+            int mineRow = random.nextInt(size);             //TODO: fixa minkoordinaterna så att de motsvarar hiddenBoard.
             int mineCol = random.nextInt(size);
 
             if (!visibleBoard[mineRow][mineCol].equals(" X ")) {

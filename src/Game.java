@@ -91,9 +91,9 @@ public class Game {
 
                 System.out.println(player.getName() +   ", choose a row ");
                 Scanner sc = new Scanner(System.in);
-                rowNumber = sc.nextInt();
+                rowNumber = sc.nextInt() - 1;
                 System.out.println(player.getName() +  ", choose a col ");
-                colNumber = sc.nextInt();
+                colNumber = sc.nextInt() - 1;
 
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
