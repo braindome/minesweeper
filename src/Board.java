@@ -120,34 +120,13 @@ public class Board {
     //This square is always mine-free, and it starts the game.
     //FIXED: Out of Bounds exception handling. Needs more testing.
     public void startingAreaClear(int row, int col) {
-
         visibleBoard[row][col] = " X ";
-        System.out.println("start ok");
-        if ((row - 1) >= 0 && ((col - 1) >= 0)) {
-            //System.out.println("inside if 1");
-            visibleBoard[row - 1][col - 1] = " X ";
-            //System.out.println("pos 1 ok");
-        }
-        if ((row - 1) >= 0 && (col + 1) < size) {
-            visibleBoard[row - 1][col + 1] = " X ";
-        }
-        if ((row + 1) < size && (col - 1) >= 0) {
-            visibleBoard[row + 1][col - 1] = " X ";
-        }
-        if ((row + 1) < size && (col + 1) < size) {
-            visibleBoard[row + 1][col + 1] = " X ";
-        }
-        if ((col - 1) >= 0) {
-            visibleBoard[row][col - 1] = " X ";
-        }
-        if ((row - 1) >= 0) {
-            visibleBoard[row - 1][col] = " X ";
-        }
-        if ((col + 1) < size) {
-            visibleBoard[row][col + 1] = " X ";
-        }
-        if ((row + 1) < size) {
-            visibleBoard[row + 1][col] = " X ";
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j <2; j++) {
+                try {
+                    visibleBoard[row+i][col+j] = " X ";
+                } catch (Exception e) {}
+            }
         }
     }
 
@@ -194,38 +173,18 @@ public class Board {
 
     //Reveals amount of mines surrounding given square and replaces empty square with number of mines.
     //FIXED: Out of Bounds Exception handling. Needs more testing.
-    public int minesAround(int row, int col) {
+    public void minesAround(int row, int col) {
         int mineCounter = 0;
-        if (!hiddenBoard[row][col].equals(" * ")) {
-            //Diagonal cells next to mine.
-            if ((row - 1) >= 0 && (col - 1) >= 0) {
-                if (hiddenBoard[row - 1][col - 1].equals(" * ")) mineCounter++;
-            }
-            if ((row - 1) >= 0 && (col + 1) < size) {
-                if (hiddenBoard[row - 1][col + 1].equals(" * ")) mineCounter++;
-            }
-            if ((row + 1) < size && (col - 1) >= 0) {
-                if (hiddenBoard[row + 1][col - 1].equals(" * ")) mineCounter++;
-            }
-            if ((row - 1) >= 0 && (col + 1) < size) {
-                if (hiddenBoard[row - 1][col + 1].equals(" * ")) mineCounter++;
-            }
-            //Above, below and to the sides of mine.
-            if ((col - 1) >= 0) {
-                if (hiddenBoard[row][col - 1].equals(" * ")) mineCounter++;
-            }
-            if ((row - 1) >= 0) {
-                if (hiddenBoard[row - 1][col].equals(" * ")) mineCounter++;
-            }
-            if ((col + 1) < size) {
-                if (hiddenBoard[row][col + 1].equals(" * ")) mineCounter++;
-            }
-            if ((row + 1) < size) {
-                if (hiddenBoard[row + 1][col].equals(" * ")) mineCounter++;
+        for (int i = -1; i < 2; i++ ) {
+            for (int j = -1; j < 2; j++) {
+                try {
+                    if (hiddenBoard[row+i][col+j].equals(" * ")) {
+                        mineCounter = mineCounter + 1;
+                    }
+                } catch (Exception e) {}
             }
         }
         visibleBoard[row][col] = " " + mineCounter + " ";
-        return mineCounter;
     }
 
     //These methods place or remove a flag from the board.

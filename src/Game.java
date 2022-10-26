@@ -63,13 +63,16 @@ public class Game {
             System.out.println("Do you want to play again? Write yes or no!");
             Scanner sc = new Scanner(System.in);
 
-            while (true) {
+            if (keepPlaying = true) {
                 String answer = sc.nextLine();
                 if (answer.equals("yes")) {
                     //Creating new board
                     createBoard();
                     playGame = true;
-                    break;
+                    keepPlaying = true;
+                    firstMove = true;
+
+                    //break;
 
                 } else if (answer.equals("no")) {
                     System.out.println("Thank you for playing!");
@@ -99,7 +102,7 @@ public class Game {
 
                 board.changePlace(rowNumber, colNumber);
                 if(firstMove){
-                    // board.startingAreaClear(rowNumber, colNumber);
+                    board.startingAreaClear(rowNumber, colNumber);
                     firstMove = false;
                     board.mineGenerator();
                 }
@@ -128,8 +131,7 @@ public class Game {
             } catch (Exception e) {
                 System.out.println("nu blev det fel");
 
-                //ta bort sen men just nu - skriver man fel så avslutas omgången
-                playGame=false;
+
             }
         }
     }
