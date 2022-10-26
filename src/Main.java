@@ -10,14 +10,9 @@ public class Main {
         System.out.println("|_| |_| |_|_|_| |_|\\___||___/ \\_/\\_/ \\___|\\___| .__/ \\___|_|   ");
         System.out.println("                                              | |              ");
         System.out.println("                                              |_|              \n\n");
-
 */
         System.out.println("Welcome to MineSweep! Try to find all the numbers in the board without hitting any bombs. Good luck!");
         Game game = new Game();
         game.startGame();
-
-
-
-
     }
 }
