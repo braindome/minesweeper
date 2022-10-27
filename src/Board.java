@@ -6,8 +6,8 @@ public class Board {
     final String[][] visibleBoard;                  //Visible board.
     private final String[][] hiddenBoard;
     private int minesAmount = 0;
-
     Random random = new Random();
+    private static final String BOMB = "\uD83D\uDCA3";
 
     public Board(int size) {
 
@@ -75,7 +75,7 @@ public class Board {
             }
             for (int j = 0; j < size; j++) {
                 String position = hiddenBoard[i][j];
-                System.out.print(position.isEmpty() ? "   " : position);
+                System.out.print(position.isEmpty() ? "   " : BOMB + " ");
                 System.out.print("|");
             }
             System.out.println();
