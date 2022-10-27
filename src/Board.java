@@ -3,7 +3,7 @@ import java.util.Random;
 public class Board {
     int size;
 
-    final String[][] visibleBoard;                  //Visible board.
+    final String[][] visibleBoard;
     private final String[][] hiddenBoard;
     private int minesAmount = 0;
     Random random = new Random();
@@ -84,27 +84,24 @@ public class Board {
 
     //Generates mines across the game board. Fixed proportion at 20% of the game area. UPDATE: mines are not generated within the 3x3 starting area.
     public void mineGenerator() {
-        System.out.println("minefield generated");
+
         int numOfMines = (size * size) / 5;
 
         for (int i = 0; i <= numOfMines; i++) {
-            int mineRow = random.nextInt(size);             //TODO: fixa minkoordinaterna så att de motsvarar hiddenBoard.
+            int mineRow = random.nextInt(size);
             int mineCol = random.nextInt(size);
 
             if (!visibleBoard[mineRow][mineCol].equals(" X ")) {
                 hiddenBoard[mineRow][mineCol] = " * ";
                 minesAmount++;
             }
-            if (hiddenBoard[mineRow][mineCol].equals(" * ")) {                          //Prints mine coordinates (for testing purposes).
-                System.out.println("Mine coordinates: " + mineRow + ", " + mineCol);
-            }
+
         }
     }
 
     public Boolean hasHitMine(int row, int col) {
         return hiddenBoard[row][col] == " * ";
     }
-
 
     //To call after the player's first move. It generates a 3x3 square around the first position entered by the player.
     //This square is always mine-free, and it starts the game.
@@ -118,21 +115,6 @@ public class Board {
                 } catch (Exception e) {}
             }
         }
-
-
-
-        //Bytte ut X mot e för tydlighet, tyckte det var svårt att se
-//
-//       visibleBoard[row][col] = " e ";
-//        for (int i = -1; i < 2; i++) {
-//            for (int j = -1; j < 2; j++) {
-//                try {
-//                    visibleBoard[row + i][col + j] = " e ";
-//                } catch (Exception e) {
-//                }
-//
-//            }
-//        }
     }
 
 
@@ -151,30 +133,7 @@ public class Board {
         }
     }
 
-    //If square is surrounded by zero mines, methods loops through the square's neighbors and checks them for mines.
-    //It then updates the new squares with the amount of mines surrounding it.
-    public void revealNearbyTilesOLD(int row, int col) {
-        System.out.println("reveal tiles");
-        boolean surrounded = false;
-        while (!surrounded) {
-            for (int i = (row-1); i < (row+2); i++) {
-                for (int j = (col-1); j < (col+2); j++) {
-                    try {
-                        //minesAround(i, j);
-                        visibleBoard[i][j] = " " + minesAround(i, j) + " ";
-                        //System.out.println("Counters: " +  i + ", " + j);
-                        if (minesAround(i, j) != 0) {
-                            surrounded = true;
-                        }
-                    } catch (Exception e) {}
-                }
-            }
-        }
-    }
-
-
     public void revealNearbyTiles(int row, int col) {
-        System.out.println("flood fill function");
         if (row >= 0 && row < size && col >= 0 && col < size) {
             visibleBoard[row][col] = " " + minesAround(row, col) + " ";
             for (int i = -1; i < 2; i++) {
@@ -193,18 +152,7 @@ public class Board {
         }
     }
 
-
-
-    //These methods place or remove a flag from the board.
-    public void placeFlag(int row, int col) {
-        visibleBoard[row][col] = " ? ";
-    }
-
-    public void removeFlag(int row, int col) {
-        visibleBoard[row][col] = "   ";
-    }
-
-    //IMPROVED minesAround using more loops!!!
+    //IMPROVED minesAround using more loops
     public int minesAround(int row, int col) {
         int mineCounter = 0;
         //Counters go through a 3x3 grid surrounding the chosen square.
@@ -221,24 +169,6 @@ public class Board {
         }
         return mineCounter;
     }
-
-
-    //Reveals amount of mines surrounding given square and replaces empty square with number of mines.
-    //FIXED: Out of Bounds Exception handling. Needs more testing.
-//    public void minesAround(int row, int col) {
-//        int mineCounter = 0;
-//        for (int i = -1; i < 2; i++) {
-//            for (int j = -1; j < 2; j++) {
-//                try {
-//                    if (hiddenBoard[row + i][col + j].equals(" * ")) {
-//                        mineCounter = mineCounter + 1;
-//                    }
-//                } catch (Exception e) {
-//                }
-//            }
-//        }
-//        visibleBoard[row][col] = " " + mineCounter + " ";
-//    }
 
     public Boolean changePlace(int row, int col) {
         //change place of marker
@@ -269,12 +199,4 @@ public class Board {
         }
         return emptyCellsLeft == 0;
     }
-
-
-
-            //flood fill algorithm to find the safe "cells"
-        public void floodFill ( int row, int col){
-//ska vi ha denna?
-
-        }
-    }
+}

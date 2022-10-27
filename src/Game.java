@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 public class Game {
-
     private Player player = new Player();
-
     private Board board;
 
     //playGame == true as long as the round is going
@@ -42,8 +40,6 @@ public class Game {
         board = new Board(size);
         board.printVisibleBoard();
 
-        //board.mineGenerator();
-
         } catch (Exception e) {
             System.out.println("Invalid input; try again.");
         }
@@ -53,7 +49,6 @@ public class Game {
 
         while (keepPlaying){
             //playing game while keepPlaying is true
-
             play();
 
             System.out.println("Do you want to play again? Write yes or no!");
@@ -67,9 +62,6 @@ public class Game {
                     playGame = true;
                     keepPlaying = true;
                     firstMove = true;
-
-                    //break;
-
                 } else if (answer.equals("no")) {
                     System.out.println("Thank you for playing!");
                     keepPlaying = false;
@@ -102,15 +94,10 @@ public class Game {
                     firstMove = false;
                     board.mineGenerator();
                     board.startingAreaHints(rowNumber, colNumber);
-
-
                 }
-
-
                 board.minesAround(rowNumber, colNumber);
                 board.visibleBoard[rowNumber][colNumber] = " " + board.minesAround(rowNumber, colNumber) + " ";
                 board.revealNearbyTiles(rowNumber, colNumber);
-
 
                 if (board.hasHitMine(rowNumber, colNumber)) {
                     board.printHiddenBoard();
