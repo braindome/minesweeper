@@ -42,8 +42,6 @@ public class Game {
         board = new Board(size);
         board.printVisibleBoard();
 
-        //board.mineGenerator();
-
         } catch (Exception e) {
             System.out.println("Invalid input; try again.");
         }
