@@ -47,31 +47,38 @@ public class Game {
 
     public void startGame(){
 
-        while (keepPlaying){
-            //playing game while keepPlaying is true
-            play();
+    while (keepPlaying) {
+        //playing game while keepPlaying is true
+        play();
+        if (keepPlaying = true) {
+        System.out.println("Do you want to play again? Write yes or no!");
+        Scanner sc = new Scanner(System.in);
+        String answer = sc.nextLine();
+        try {
 
-            System.out.println("Do you want to play again? Write yes or no!");
-            Scanner sc = new Scanner(System.in);
-
-            if (keepPlaying = true) {
-                String answer = sc.nextLine();
-                if (answer.equals("yes")) {
-                    //Creating new board
-                    createBoard();
-                    playGame = true;
-                    keepPlaying = true;
-                    firstMove = true;
-                } else if (answer.equals("no")) {
-                    System.out.println("Thank you for playing!");
-                    keepPlaying = false;
-                    firstMove = false;
-                    break;
-                } else {
-                    System.out.println("Please write yes or no.");
-                }
+         //   String answer = sc.nextLine();
+            if (answer.equals("yes")) {
+                //Creating new board
+                createBoard();
+                playGame = true;
+                keepPlaying = true;
+                firstMove = true;
+            } else if (answer.equals("no")) {
+                System.out.println("Thank you for playing!");
+                keepPlaying = false;
+                firstMove = false;
+                break;
+            } else {
+                System.out.println("Please write yes or no.");
+              //  answer = sc.nextLine();
             }
+
+    } catch (Exception e) {
+
+    }
         }
+    }
+
     }
 
     public void play(){
@@ -107,6 +114,7 @@ public class Game {
                 } else if(board.checkWin()){
                     board.printHiddenBoard();
                     player.increaseScore();
+                    break;
                 }
 
                 board.printVisibleBoard();
